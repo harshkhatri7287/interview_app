@@ -4,6 +4,10 @@ app_publisher = "Harsh"
 app_description = "Interview Management System"
 app_email = "interviewmanager@beehyv.com"
 app_license = "mit"
+
+
+fixtures = ["Client Script"]
+
 # required_apps = []
 
 # Includes in <head>

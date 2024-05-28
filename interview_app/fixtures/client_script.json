@@ -1,0 +1,24 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Candidate",
+  "enabled": 1,
+  "modified": "2024-05-24 08:58:57.825965",
+  "module": null,
+  "name": "Schedule Interview",
+  "script": "frappe.listview_settings['Candidate'] = {\n    onload: function(listview) {\n        listview.page.add_action_item('Schedule Interview', function() {\n            var selected_candidates = listview.get_checked_items();\n            if (selected_candidates.length === 1) {\n                var candidate_name = selected_candidates[0].name;\n                frappe.new_doc(\"Interview\", { \"candidate\": candidate_name });\n            } else {\n                frappe.msgprint(\"Please select one candidate to schedule an interview.\");\n            }\n        });\n    }\n};",
+  "view": "List"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Interview",
+  "enabled": 1,
+  "modified": "2024-05-27 19:03:45.997677",
+  "module": null,
+  "name": "Fetch Question",
+  "script": "// Custom Script for Interview List View\nfrappe.listview_settings['Interview'] = {\n    onload: function(listview) {\n        listview.page.add_action_item(__('Get Questions'), function() {\n            const selected = listview.get_checked_items();\n            if (selected.length > 0) {\n                selected.forEach(item => {\n                    frappe.call({\n                        method: 'interview_app.interview_app.doctype.question.question.get_questions',\n                        args: {\n                            candidate: item.candidate  // Ensure this matches the candidate field in the Interview doctype\n                        },\n                        callback: function(r) {\n                            if (r.message && r.message.length > 0) {\n                                let questions = r.message;\n                                let questions_html = '<ol>';\n                                questions.forEach(q => {\n                                    questions_html += `<li>${q.questions}</li>`;\n                                });\n                                questions_html += '</ol>';\n                                frappe.msgprint({\n                                    title: 'Interview Questions for ' + item.candidate,\n                                    indicator: 'blue',\n                                    message: questions_html\n                                });\n                            } else {\n                                frappe.msgprint({\n                                    title: 'No Questions',\n                                    indicator: 'red',\n                                    message: 'No questions found for this candidate.'\n                                });\n                            }\n                        }\n                    });\n                });\n            } else {\n                frappe.msgprint({\n                    title: 'No Selection',\n                    indicator: 'orange',\n                    message: 'Please select an interview to get questions.'\n                });\n            }\n        });\n    }\n};\n",
+  "view": "List"
+ }
+]
