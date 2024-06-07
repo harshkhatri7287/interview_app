@@ -1,14 +1,31 @@
 {
- "actions": [],
- "allow_rename": 1,
+ "actions": [
+  {
+   "action": "/app/interview",
+   "action_type": "Route",
+   "label": "Schedule Next Interview"
+  },
+  {
+   "action": "/app/interview",
+   "action_type": "Route",
+   "label": "Go to Interview list"
+  }
+ ],
+ "allow_copy": 1,
  "creation": "2024-05-23 14:26:17.019718",
+ "default_view": "List",
  "doctype": "DocType",
+ "document_type": "System",
  "engine": "InnoDB",
  "field_order": [
-  "full_name",
-  "resume",
   "status",
-  "email"
+  "role_applied",
+  "resume",
+  "column_break_ousn",
+  "full_name",
+  "email",
+  "section_break_jgde",
+  "interview_rounds"
  ],
  "fields": [
   {
@@ -26,7 +43,8 @@
    "fieldname": "resume",
    "fieldtype": "Attach",
    "in_list_view": 1,
-   "label": "Resume"
+   "label": "Resume",
+   "reqd": 1
   },
   {
    "allow_in_quick_entry": 1,
@@ -35,18 +53,53 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Pending\nScreening Round\nTechnical Round\nAptitude Round\nHR Round\nAccepted\nRejected\nOn Hold",
+   "options": "Pending\nScreening\nTechnical\nAptitude\nHR\nApproved\nRejected\nOn Hold",
    "reqd": 1
   },
   {
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "role_applied",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Role Applied",
+   "options": "Software Developer\nSenior Software Developer\nDevOps Enginner",
+   "reqd": 1
+  },
+  {
+   "fieldname": "interview_rounds",
+   "fieldtype": "Table",
+   "label": "Interview Rounds",
+   "options": "Interview Rounds"
+  },
+  {
+   "fieldname": "column_break_ousn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jgde",
+   "fieldtype": "Section Break"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-05-24 03:06:06.629334",
+ "links": [
+  {
+   "link_doctype": "Interview",
+   "link_fieldname": "candidate"
+  },
+  {
+   "link_doctype": "Question",
+   "link_fieldname": "candidate"
+  }
+ ],
+ "make_attachments_public": 1,
+ "max_attachments": 1,
+ "modified": "2024-06-04 20:14:24.812956",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",
@@ -87,8 +140,8 @@
   }
  ],
  "quick_entry": 1,
- "sort_field": "creation",
- "sort_order": "DESC",
+ "sort_field": "name",
+ "sort_order": "ASC",
  "states": [
   {
    "color": "Red",

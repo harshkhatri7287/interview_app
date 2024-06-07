@@ -8,7 +8,6 @@ app_license = "mit"
 
 fixtures = ["Client Script"]
 
-# required_apps = []
 
 # Includes in <head>
 # ------------------

@@ -7,7 +7,8 @@
  "field_order": [
   "question",
   "candidate",
-  "questions"
+  "questions",
+  "technology"
  ],
  "fields": [
   {
@@ -29,12 +30,20 @@
    "fieldname": "questions",
    "fieldtype": "Text",
    "in_list_view": 1,
-   "label": "Questions"
+   "label": "Questions",
+   "reqd": 1
+  },
+  {
+   "fieldname": "technology",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Technology",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-26 17:34:10.371353",
+ "modified": "2024-05-31 12:59:08.950942",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Question",

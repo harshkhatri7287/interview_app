@@ -1,6 +1,12 @@
 {
- "actions": [],
- "allow_rename": 1,
+ "actions": [
+  {
+   "action": "/app/candidate",
+   "action_type": "Route",
+   "label": "Go to Candidate List"
+  }
+ ],
+ "allow_copy": 1,
  "creation": "2024-05-24 07:36:24.560665",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -8,12 +14,11 @@
   "interview_information",
   "interviewer",
   "candidate",
-  "current_round",
-  "round_status",
-  "outcome",
-  "feedback",
   "date",
-  "questions"
+  "current_round",
+  "column_break_uqaa",
+  "outcome",
+  "feedback"
  ],
  "fields": [
   {
@@ -43,22 +48,13 @@
   },
   {
    "allow_in_quick_entry": 1,
-   "default": "Screening Round",
+   "default": "Screening",
    "fieldname": "current_round",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Current Round",
-   "options": "Screening Round\nAptitude Round\nTechnical Round\nHR Round",
-   "reqd": 1
-  },
-  {
-   "allow_in_quick_entry": 1,
-   "fieldname": "round_status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Round Status",
-   "options": "Scheduled\nCompleted",
+   "options": "Screening\nAptitude\nTechnical\nHR",
    "reqd": 1
   },
   {
@@ -70,7 +66,7 @@
   },
   {
    "fieldname": "feedback",
-   "fieldtype": "Text",
+   "fieldtype": "Small Text",
    "label": "Feedback"
   },
   {
@@ -82,15 +78,15 @@
    "reqd": 1
   },
   {
-   "fieldname": "questions",
-   "fieldtype": "Link",
-   "label": "Questions",
-   "options": "Question"
+   "fieldname": "column_break_uqaa",
+   "fieldtype": "Column Break"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-26 17:22:22.221752",
+ "make_attachments_public": 1,
+ "modified": "2024-06-04 20:13:35.075668",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Interview",

@@ -6,33 +6,39 @@
 
 // 	},
 // });
-frappe.listview_settings['Interview'] = {
-    onload: function(listview) {
-        listview.page.add_inner_button(__('Get Questions'), function() {
-            const selected = listview.get_checked_items();
-            if (selected.length > 0) {
-                selected.forEach(item => {
-                    frappe.call({
-                        method: 'interview_app.interview_app.doctype.question.question.get_questions',
-                        args: {
-                            candidate: item.name
-                        },
-                        callback: function(r) {
-                            if (r.message) {
-                                let questions = JSON.parse(r.message);
-                                let questions_html = '<ol>';
-                                questions.forEach(q => {
-                                    questions_html += `<li>${q}</li>`;
-                                });
-                                questions_html += '</ol>';
-                                frappe.msgprint(questions_html, 'Interview Questions for ' + item.name);
-                            }
-                        }
-                    });
-                });
-            } else {
-                frappe.msgprint('Please select an interview to get questions.');
-            }
-        });
+
+// Access Control
+
+frappe.ui.form.on('Interview', {
+    refresh: function(frm) {
+        const isInterviewer = frappe.user.has_role("Interviewer");
+        const isAdmin = frappe.user.has_role("System Manager") || frappe.session.user === 'Administrator';
+        if (!isAdmin && isInterviewer && (frm.doc.interviewer != frappe.session.user)) {
+            frm.disable_save();
+            frappe.msgprint(__('You are not allowed to edit this interview.'));
+        }
+    },
+
+    after_save: function(frm) {
+        update_candidate_status(frm);
+    },
+
+    validate: function(frm) {
+        update_candidate_status(frm);
     }
-};
+});
+
+function update_candidate_status(frm) {
+    frappe.call({
+        method: 'interview_app.interview_app.doctype.interview.interview.update_candidate_status_client',
+        args: {
+            candidate: frm.doc.candidate
+        },
+        callback: function(r) {
+            if (r.message) {
+                frappe.msgprint(__('Candidate status updated to ' + r.message));
+            }
+        }
+    });
+}
+
