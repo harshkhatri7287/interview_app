@@ -42,7 +42,7 @@ frappe.ui.form.on('Candidate', {
                     },
                     callback: function(r) {
                         if (!r.exc) {
-                            frappe.msgprint(__('Questions generated and added successfully.'));
+                            // frappe.msgprint(__('Questions generated and added successfully.'));
                             frm.reload_doc();
                         }
                     }

@@ -67,7 +67,6 @@ class ExtractTextInfoFromPDF:
             stream_asset: StreamAsset = pdf_services.get_content(result_asset)
 
             output_file_path = self.create_output_file_path()
-            print(output_file_path)
             with open(output_file_path, "wb") as file:
                 file.write(stream_asset.get_input_stream())
 
