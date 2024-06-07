@@ -33,6 +33,21 @@ frappe.ui.form.on('Candidate', {
             frm.add_custom_button(__('Schedule Next Interview'), function() {
                 schedule_next_interview(frm);
             });
+
+            frm.add_custom_button(__('Generate Questions'), function() {
+                frappe.call({
+                    method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
+                    args: {
+                        docname: frm.doc.name
+                    },
+                    callback: function(r) {
+                        if (!r.exc) {
+                            frappe.msgprint(__('Questions generated and added successfully.'));
+                            frm.reload_doc();
+                        }
+                    }
+                });
+            });
         }
     },
 });

@@ -11,31 +11,40 @@ class Interview(Document):
 
 @frappe.whitelist()
 def update_candidate_status_client(candidate):
-    interviews = frappe.get_all('Interview',
-                                filters={'candidate': candidate},
-                                fields=['current_round', 'outcome'])
-
-    if not interviews:
-        frappe.db.set_value('Candidate', candidate, 'status', 'Pending')
-        return 'Pending'
-
+    rounds = ["Screening", "Aptitude", "Technical", "HR"]
+    
+    # Initialize flags and variables
     all_approved = True
-    for interview in interviews:
-        if interview.outcome == 'Rejected':
-            frappe.db.set_value('Candidate', candidate, 'status', 'Rejected')
-            return 'Rejected'
-        elif interview.outcome != 'Approved':
+    any_rejected = False
+    most_recent_approved_round = None
+    rounds_checked = 0
+
+    # Iterate through each round and check the outcome
+    for round_name in rounds:
+        outcome = frappe.db.get_value('Interview', {'candidate': candidate, 'current_round': round_name}, 'outcome')
+        
+        if outcome:
+            rounds_checked += 1
+            if outcome == "Rejected":
+                any_rejected = True
+                break
+            elif outcome == "Approved":
+                most_recent_approved_round = round_name
+            else:
+                all_approved = False
+        else:
             all_approved = False
 
-    if all_approved:
+    # Determine the candidate status based on the outcomes
+    if any_rejected:
+        frappe.db.set_value('Candidate', candidate, 'status', 'Rejected')
+        return 'Rejected'
+    elif all_approved and rounds_checked == len(rounds):
         frappe.db.set_value('Candidate', candidate, 'status', 'Approved')
         return 'Approved'
+    elif most_recent_approved_round:
+        frappe.db.set_value('Candidate', candidate, 'status', most_recent_approved_round)
+        return most_recent_approved_round
     else:
-        pending_rounds = [interview['current_round'] for interview in interviews if interview['outcome'] == 'Pending']
-        if pending_rounds:
-            frappe.db.set_value('Candidate', candidate, 'status', pending_rounds[-1])
-            return pending_rounds[-1]
-        else:
-            last_completed_round = interviews[-1]['current_round']
-            frappe.db.set_value('Candidate', candidate, 'status', last_completed_round)
-            return last_completed_round
+        frappe.db.set_value('Candidate', candidate, 'status', 'Pending')
+        return 'Pending'

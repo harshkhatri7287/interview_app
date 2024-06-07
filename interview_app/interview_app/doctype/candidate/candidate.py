@@ -4,7 +4,9 @@
 
 import frappe
 from frappe.model.document import Document
-
+import os
+from interview_app.interview_app.resume_processing.extract2 import ExtractTextInfoFromPDF
+import json
 
 class Candidate(Document):
 	pass
@@ -12,7 +14,8 @@ class Candidate(Document):
 
 @frappe.whitelist()
 def fetch_candidate_interviews(candidate_id):
-    interviews = frappe.get_all('Interview', filters={'candidate': candidate_id}, fields=['current_round', 'outcome', 'interviewer', 'date'])
+    interviews = frappe.get_all('Interview', filters={'candidate': candidate_id}, fields=[
+                                'current_round', 'outcome', 'interviewer', 'date'])
     return interviews
 
 
@@ -26,32 +29,30 @@ def get_interview_rounds(candidate):
     return {'completed_rounds': completed_rounds}
 
 
-# @frappe.whitelist()
-# def update_candidate_status(doc, method):
-#     candidate = doc.candidate
-#     interviews = frappe.get_all('Interview',
-#                                 filters={'candidate': candidate},
-#                                 fields=['current_round', 'outcome'])
+@frappe.whitelist()
+def generate_questions(docname):
+    candidate = frappe.get_doc("Candidate", docname)
 
-#     if not interviews:
-#         frappe.db.set_value('Candidate', candidate, 'status', 'Pending')
-#         return
+    if not candidate.resume:
+        frappe.throw("Please upload a resume file first.")
 
-#     all_approved = True
-#     for interview in interviews:
-#         if interview.outcome == 'Rejected':
-#             frappe.db.set_value('Candidate', candidate, 'status', 'Rejected')
-#             return
-#         elif interview.outcome != 'Approved':
-#             all_approved = False
+    # Get the file path of the uploaded resume
+    file_url = candidate.resume
+    file_doc = frappe.get_doc("File", {"file_url": file_url})
+    resume_path = frappe.get_site_path("public", file_doc.file_url.lstrip("/"))
+    extractor = ExtractTextInfoFromPDF(resume_path=resume_path, zip_path=frappe.get_site_path(
+        "public", "files", f"{candidate.name}_resume_output.zip"))
+    response = extractor.get_response()
+    response = json.loads(response)
+    for	technology, questions in response['questions'].items():
+    	for question_text in questions:
+        	frappe.publish_progress(
+            	percent=0, title="In Progress...", description="In Progress...")
+        	question_doc = frappe.new_doc('Question')	
+        	question_doc.candidate = docname
+       		question_doc.technology = technology
+        	question_doc.questions = question_text
+        	question_doc.save()
 
-#     if all_approved:
-#         frappe.db.set_value('Candidate', candidate, 'status', 'Approved')
-#     else:
-#         pending_rounds = [interview.round_type for interview in interviews if interview.outcome == 'Pending']
-#         if pending_rounds:
-#             frappe.db.set_value('Candidate', candidate, 'status', pending_rounds[-1])
-#         else:
-#             last_completed_round = interviews[-1].round_type
-#             frappe.db.set_value('Candidate', candidate, 'status', last_completed_round)
-	
+
+

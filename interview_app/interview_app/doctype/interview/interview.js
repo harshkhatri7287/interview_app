@@ -7,18 +7,18 @@
 // 	},
 // });
 
-// Access Control
-
 frappe.ui.form.on('Interview', {
     refresh: function(frm) {
         const isInterviewer = frappe.user.has_role("Interviewer");
         const isAdmin = frappe.user.has_role("System Manager") || frappe.session.user === 'Administrator';
-        if (!isAdmin && isInterviewer && (frm.doc.interviewer != frappe.session.user)) {
-            frm.disable_save();
-            frappe.msgprint(__('You are not allowed to edit this interview.'));
+
+        if (isInterviewer && !isAdmin) {
+            if (frm.doc.interviewer !== frappe.session.user) {
+                frm.disable_save();
+                frappe.msgprint(__('You are not allowed to edit this interview.'));
+            }
         }
     },
-
     after_save: function(frm) {
         update_candidate_status(frm);
     },

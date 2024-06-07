@@ -8,7 +8,6 @@ app_license = "mit"
 
 fixtures = ["Client Script"]
 
-
 # Includes in <head>
 # ------------------
 
