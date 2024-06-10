@@ -11,7 +11,7 @@ class Interview(Document):
 
 @frappe.whitelist()
 def update_candidate_status_client(candidate):
-    rounds = ["Screening", "Aptitude", "Technical", "HR"]
+    rounds = ["Aptitude", "Screening", "Technical", "HR"]
     
     # Initialize flags and variables
     all_approved = True

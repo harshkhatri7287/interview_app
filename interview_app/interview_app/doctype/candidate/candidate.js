@@ -2,9 +2,7 @@
 frappe.ui.form.on('Candidate', {
 
     refresh: function(frm) {
-        // Ensure the document is not new
         if (!frm.doc.__islocal) {
-            // Call the server-side method to fetch interviews
             frappe.call({
                 method: 'interview_app.interview_app.doctype.candidate.candidate.fetch_candidate_interviews',
                 args: {
@@ -12,10 +10,7 @@ frappe.ui.form.on('Candidate', {
                 },
                 callback: function(r) {
                     if (r.message) {
-                        // Clear existing child table data
                         frm.clear_table('interview_rounds');
-
-                        // Populate the child table with fetched data
                         r.message.forEach(interview => {
                             let row = frm.add_child('interview_rounds');
                             row.interview_round = interview.current_round;
@@ -42,7 +37,6 @@ frappe.ui.form.on('Candidate', {
                     },
                     callback: function(r) {
                         if (!r.exc) {
-                            // frappe.msgprint(__('Questions generated and added successfully.'));
                             frm.reload_doc();
                         }
                     }
@@ -82,7 +76,7 @@ function schedule_next_interview(frm) {
 }
 
 function get_next_round(completed_rounds) {
-    var rounds = ['Screening', 'Aptitude', 'Technical', 'HR'];
+    var rounds = ['Aptitude', 'Screening', 'Technical', 'HR'];
     for (var i = 0; i < rounds.length; i++) {
         if (!completed_rounds.includes(rounds[i])) {
             return rounds[i];
