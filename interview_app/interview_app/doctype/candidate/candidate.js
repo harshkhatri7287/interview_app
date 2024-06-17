@@ -19,7 +19,6 @@ frappe.ui.form.on('Candidate', {
                             row.date = interview.date;
                         });
 
-                        // Refresh the form to display the updated child table
                         frm.refresh_field('interview_rounds');
                     }
                 }
@@ -30,12 +29,14 @@ frappe.ui.form.on('Candidate', {
             });
 
             frm.add_custom_button(__('Generate Questions'), function() {
+                var timerInterval = showTimer();
                 frappe.call({
                     method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
                     args: {
                         docname: frm.doc.name
                     },
                     callback: function(r) {
+                        stopTimer(timerInterval);
                         if (!r.exc) {
                             frm.reload_doc();
                         }
@@ -83,4 +84,33 @@ function get_next_round(completed_rounds) {
         }
     }
     return null;
+}
+
+function showTimer() {
+    var timeLeft = 20;
+
+    // Display the initial message
+    frappe.msgprint({
+        message: `Generating questions... <span id="timer-countdown">${timeLeft}</span> seconds remaining.`,
+        title: 'Please wait',
+        indicator: 'blue'
+    });
+
+    var timerInterval = setInterval(function() {
+        timeLeft--;
+        // Update the countdown text
+        $('#timer-countdown').text(timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            frappe.hide_msgprint();
+        }
+    }, 1000);
+
+    return timerInterval;
+}
+
+function stopTimer(timerInterval) {
+    clearInterval(timerInterval);
+    frappe.hide_msgprint(); 
 }

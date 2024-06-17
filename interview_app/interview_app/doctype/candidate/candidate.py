@@ -35,28 +35,29 @@ def generate_questions(docname):
     if not candidate.resume:
         frappe.throw("Please upload a resume file first.")
 
-    frappe.publish_realtime(event="msgprint", message="System is generating questions...", user=frappe.session.user)
+    # frappe.publish_realtime(event="msgprint", message="System is generating questions...please wait...", user=frappe.session.user)
 
     file_url = candidate.resume
     file_doc = frappe.get_doc("File", {"file_url": file_url})
     resume_path = frappe.get_site_path("public", file_doc.file_url.lstrip("/"))
     
     extractor = ExtractTextInfoFromPDF(resume_path=resume_path, zip_path=frappe.get_site_path(
-        "public", "files", f"{candidate.name}_resume_output.zip"))
+        "public", "files", f"{candidate.name}_resume_output.zip"), role_applied=candidate.role_applied)
     
     response = extractor.get_response()
     response = json.loads(response)
 
-    for technology, questions in response['questions'].items():
-        for question_text in questions:
-            question_doc = frappe.new_doc('Question')
-            question_doc.candidate = docname
-            question_doc.technology = technology
-            question_doc.questions = question_text
-            question_doc.save()
-
+    for technology, questions in response.get('questions', {}).items():
+        question_doc = frappe.new_doc('Question')
+        question_doc.candidate = docname
+        question_doc.technology = technology
+        question_doc.questions = questions
+        question_doc.save()
+        
+    candidate_doc = frappe.get_doc('Candidate', docname)
+    candidate_doc.resume_summary = response['summary']
+    candidate_doc.save()
     frappe.publish_realtime(event="msgprint", message="All questions have been generated.", user=frappe.session.user)
-
     return "Questions generated successfully"
 
 

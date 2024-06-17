@@ -4,11 +4,6 @@
    "action": "/app/interview",
    "action_type": "Route",
    "label": "Schedule Next Interview"
-  },
-  {
-   "action": "/app/interview",
-   "action_type": "Route",
-   "label": "Go to Interview list"
   }
  ],
  "allow_copy": 1,
@@ -18,12 +13,13 @@
  "document_type": "System",
  "engine": "InnoDB",
  "field_order": [
+  "full_name",
   "status",
   "role_applied",
-  "resume",
   "column_break_ousn",
-  "full_name",
+  "resume",
   "email",
+  "resume_summary",
   "section_break_jgde",
   "interview_rounds"
  ],
@@ -67,14 +63,15 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Role Applied",
-   "options": "Software Developer\nSenior Software Developer\nDevOps Enginner",
+   "options": "Software Developer\nSenior Software Developer\nDevOps Enginner\nTech Lead",
    "reqd": 1
   },
   {
    "fieldname": "interview_rounds",
    "fieldtype": "Table",
    "label": "Interview Rounds",
-   "options": "Interview Rounds"
+   "options": "Interview Rounds",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_ousn",
@@ -83,6 +80,13 @@
   {
    "fieldname": "section_break_jgde",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "resume_summary",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "Resume_summary",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
@@ -98,8 +102,7 @@
   }
  ],
  "make_attachments_public": 1,
- "max_attachments": 1,
- "modified": "2024-06-04 20:14:24.812956",
+ "modified": "2024-06-17 18:45:39.452819",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",
@@ -140,6 +143,7 @@
   }
  ],
  "quick_entry": 1,
+ "show_title_field_in_link": 1,
  "sort_field": "name",
  "sort_order": "ASC",
  "states": [
@@ -151,5 +155,6 @@
    "color": "Blue",
    "title": "Submitted"
   }
- ]
+ ],
+ "title_field": "full_name"
 }

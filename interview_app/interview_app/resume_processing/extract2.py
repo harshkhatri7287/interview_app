@@ -29,12 +29,12 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
+        temperature=1,
     )
     return response.choices[0].message["content"]
 
 class ExtractTextInfoFromPDF:
-    def __init__(self, resume_path: str, zip_path: str):
+    def __init__(self, resume_path: str, zip_path: str, role_applied: str):
         self.response = None
         try:
 
@@ -83,19 +83,23 @@ class ExtractTextInfoFromPDF:
             print(content)
 
             prompt = f"""
-                You are given a snippet of candidate resume. You are required to carry out 2 tasks. 
-                1. List the technologies mentioned  
-                2. mention the work experience of the candidate in years as(fresher,mid-level-senior, senior) on the basis of snippet with the list of technology mentioned
-                3. generate atmost 2 relevant questions(not the basic one) on the basis of each technology based on experience and work. 
-                4. generate 5 questions of the on the work candidate has done
-                Your output should be a JSON object that consists of the keys - `technologies`, `questions` 
-                technologies should contain the outcome of first task
-                questions should contain the list of questions categorized to each technology
-                Determine the technologies and generate the questions for the resume separated by
-                
-                    ```{content}```              
+                    ```{content}```      
+                    Above is resume content of a candidate.
+                    role applied: {role_applied}
+                    generate 8-10 technical and conceptual question for a 30 min interview based on below criteria:
+                    1.) Question should be relevant to the technology and work candidate has done.
+                    2.) Question should also be related to the role candidate applied for.
+                    3.) Question should give the knowledge overview of candidate.
+                    4.) Most question should be from recent work. 
+                    5.) All questions must be relevant to Year of experience of candidate in that field
+                    6.) provide the summary of the text from above resume content with heading "summary"
+                    
+                    Your output should be a JSON object that consists of the keys - `questions`, `summary` 
+                In the questions object topic of the question should be the key and question as the value
+       
                     """
             response = get_completion(prompt)
+            print(response)
             self.response = response
        
         except (ServiceApiException, ServiceUsageException, SdkException) as e:
