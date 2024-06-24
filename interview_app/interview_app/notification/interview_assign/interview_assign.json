@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2024-06-20 12:16:27.085263",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Interview",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>You have been assigned to conduct an interview. Here are the details of the interview:</p>\n\n<p>Date: {{doc.date}}\nTime: {{doc.time}}\nCandidate Name: {{doc.candidate}}</p>\n",
+ "message_type": "Markdown",
+ "modified": "2024-06-20 12:22:30.703085",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Interview Assign",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "interviewer",
+   "receiver_by_role": "Interviewer"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 1,
+ "sender": "",
+ "sender_email": "",
+ "subject": "Interview Assigned on {{ doc.date }} at {{ doc.time }}"
+}

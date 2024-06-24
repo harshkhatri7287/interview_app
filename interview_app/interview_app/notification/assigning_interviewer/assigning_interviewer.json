@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "condition": "",
+ "creation": "2024-06-19 16:56:04.202736",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Interview",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "You have been assigned to conduct an interview. Here are the details of the interview:\n\nCandidate Name: {{doc.candidate}}\nDate: {{doc.date}}\nTime: {{doc.time}}\n",
+ "message_type": "Plain Text",
+ "modified": "2024-06-19 23:47:35.861666",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Assigning Interviewer",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "condition": "",
+   "receiver_by_document_field": "owner",
+   "receiver_by_role": "Interviewer"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "New Interview Assigned on {{doc.date}} at  {{doc.time}}"
+}

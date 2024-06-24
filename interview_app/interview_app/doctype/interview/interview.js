@@ -25,7 +25,48 @@ frappe.ui.form.on('Interview', {
 
     validate: function(frm) {
         update_candidate_status(frm);
+    },
+
+    refresh: function(frm) {
+        frm.add_custom_button(__('Reschedule Request'), function() {
+            let d = new frappe.ui.Dialog({
+                title: 'Request Reschedule',
+                fields: [
+                    {
+                        label: 'Preferred Date',
+                        fieldname: 'preferred_date',
+                        fieldtype: 'Date',
+                        reqd: 1
+                    },
+                    {
+                        label: 'Preferred Time',
+                        fieldname: 'preferred_time',
+                        fieldtype: 'Time',
+                        reqd: 1
+                    }
+                ],
+                primary_action_label: 'Submit',
+                primary_action(values) {
+                     frappe.call({
+                        method: 'interview_app.interview_app.doctype.interview.interview.create_interview_reschedule',
+                        args: {
+                            interview_id: frm.doc.name,
+                            preferred_date: values.preferred_date,
+                            preferred_time: values.preferred_time
+                        },
+                        callback: function(r) {
+                            if (r.message) {
+                                frappe.msgprint(__('Reschedule request created successfully'));
+                            }
+                        }
+                    });
+                    d.hide();
+                }
+            });
+            d.show();
+        });
     }
+    
 });
 
 function update_candidate_status(frm) {

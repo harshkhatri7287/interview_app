@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Candidate",
+   "width": "Half"
+  }
+ ],
+ "creation": "2024-06-21 13:07:38.732835",
+ "dashboard_name": "Statistics",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2024-06-21 13:07:38.732835",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Statistics",
+ "owner": "Administrator"
+}

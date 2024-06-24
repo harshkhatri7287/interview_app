@@ -63,7 +63,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Role Applied",
-   "options": "Software Developer\nSenior Software Developer\nDevOps Enginner\nTech Lead",
+   "options": "Software Developer\nSenior Software Developer\nDevOps Enginner\nTech Lead\nSenior Tech Lead",
    "reqd": 1
   },
   {
@@ -102,7 +102,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-06-17 18:45:39.452819",
+ "modified": "2024-06-18 17:22:44.340759",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",

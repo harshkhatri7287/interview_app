@@ -48,3 +48,16 @@ def update_candidate_status_client(candidate):
     else:
         frappe.db.set_value('Candidate', candidate, 'status', 'Pending')
         return 'Pending'
+    
+
+@frappe.whitelist()
+def create_interview_reschedule(interview_id, preferred_date, preferred_time):    
+    interview_reschedule = frappe.get_doc({
+        'doctype': 'Interview Reschedule',
+        'interview': interview_id,
+        'preferred_date': preferred_date,
+        'preferred_time': preferred_time
+    })
+    interview_reschedule.insert()
+    
+    return interview_reschedule.name

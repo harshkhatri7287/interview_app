@@ -1,0 +1,5 @@
+You have been assigned to conduct an interview. Here are the details of the interview:
+
+Candidate Name: {{doc.candidate}}
+Date: {{doc.date}}
+Time: {{doc.time}}

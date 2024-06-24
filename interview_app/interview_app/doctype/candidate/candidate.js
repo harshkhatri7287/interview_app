@@ -40,6 +40,9 @@ frappe.ui.form.on('Candidate', {
                         if (!r.exc) {
                             frm.reload_doc();
                         }
+                        else {
+                            frappe.msgprint("Please try again..")
+                        }
                     }
                 });
             });
@@ -77,7 +80,7 @@ function schedule_next_interview(frm) {
 }
 
 function get_next_round(completed_rounds) {
-    var rounds = ['Aptitude', 'Screening', 'Technical', 'HR'];
+    var rounds = ['Screening', 'Aptitude', 'Technical', 'HR'];
     for (var i = 0; i < rounds.length; i++) {
         if (!completed_rounds.includes(rounds[i])) {
             return rounds[i];
@@ -87,13 +90,13 @@ function get_next_round(completed_rounds) {
 }
 
 function showTimer() {
-    var timeLeft = 20;
+    var timeLeft = 30;
 
     // Display the initial message
     frappe.msgprint({
         message: `Generating questions... <span id="timer-countdown">${timeLeft}</span> seconds remaining.`,
-        title: 'Please wait',
-        indicator: 'blue'
+        title: 'Please wait...',
+        indicator: 'yellow'
     });
 
     var timerInterval = setInterval(function() {

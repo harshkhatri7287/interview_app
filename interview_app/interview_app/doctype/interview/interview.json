@@ -1,11 +1,5 @@
 {
- "actions": [
-  {
-   "action": "/app/candidate",
-   "action_type": "Route",
-   "label": "Go to Candidate List"
-  }
- ],
+ "actions": [],
  "allow_copy": 1,
  "creation": "2024-05-24 07:36:24.560665",
  "doctype": "DocType",
@@ -15,6 +9,7 @@
   "interviewer",
   "candidate",
   "date",
+  "time",
   "current_round",
   "column_break_bmgi",
   "outcome",
@@ -63,7 +58,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Outcome",
-   "options": "Pending\nApproved\nRejected\nOn Hold"
+   "options": "Pending\nNo Hire\nHire\nWeak Hire\nStrong Hire\nOn Hold"
   },
   {
    "fieldname": "feedback",
@@ -75,19 +70,27 @@
    "fieldname": "date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Date",
+   "label": "Date ",
    "reqd": 1
   },
   {
    "fieldname": "column_break_bmgi",
    "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Time",
+   "reqd": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-06-17 19:52:51.684181",
+ "modified": "2024-06-20 14:31:18.727329",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Interview",
@@ -113,7 +116,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Manager",
+   "role": "HR",
    "share": 1,
    "write": 1
   },

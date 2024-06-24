@@ -29,7 +29,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        temperature=1,
+        temperature=0,
     )
     return response.choices[0].message["content"]
 
@@ -84,19 +84,23 @@ class ExtractTextInfoFromPDF:
 
             prompt = f"""
                     ```{content}```      
-                    Above is resume content of a candidate.
-                    role applied: {role_applied}
+                    Above is the resume content of a candidate.
+
+                    Role applied: {role_applied}
+
                     generate 8-10 technical and conceptual question for a 30 min interview based on below criteria:
-                    1.) Question should be relevant to the technology and work candidate has done.
+                    1.) Question should be relevant to the technology and work candidate has done(should not be like " what are your thoughts").
                     2.) Question should also be related to the role candidate applied for.
-                    3.) Question should give the knowledge overview of candidate.
-                    4.) Most question should be from recent work. 
-                    5.) All questions must be relevant to Year of experience of candidate in that field
-                    6.) provide the summary of the text from above resume content with heading "summary"
-                    
+                    3.) Most question should be from recent work.
+                    4.) All questions must be relevant to Year of experience of candidate in that field
+                    5.) questions should NOT be like " -what challenges he faced, -what he thinks about something,- and how he manage to do things".they should be specific to technology as well as his work
+
+                    The questions should be highly technical, detailed, and focus on technical aspects of the candidate's work..
+
+                    Provide a summary of the resume content under the heading "summary."
                     Your output should be a JSON object that consists of the keys - `questions`, `summary` 
-                In the questions object topic of the question should be the key and question as the value
-       
+                    In the questions object topic of the question should be the key and question as the value
+
                     """
             response = get_completion(prompt)
             print(response)
