@@ -1,29 +1,30 @@
 {
  "attach_print": 0,
  "channel": "System Notification",
- "creation": "2024-06-20 12:38:18.764865",
+ "creation": "2024-06-20 14:04:01.829333",
  "days_in_advance": 0,
  "docstatus": 0,
  "doctype": "Notification",
  "document_type": "Interview",
  "enabled": 1,
- "event": "New",
+ "event": "Value Change",
  "idx": 0,
  "is_standard": 1,
- "message": "You have been assigned to conduct an interview. Here are the details of the interview:\n\nDate: {{doc.date}}\nTime: {{doc.time}}\nCandidate Name: {{doc.candidate}}",
+ "message": "Verdict has been updated for the below interview:\n\nCandidate : {{doc.candidate}}\nVerdict : {{doc.outcome}}",
  "message_type": "Markdown",
- "modified": "2024-06-25 13:00:23.347190",
+ "modified": "2024-06-25 13:00:12.402150",
  "modified_by": "Administrator",
  "module": "Interview App",
- "name": "Interview Assign",
+ "name": "Verdict Updated",
  "owner": "Administrator",
  "recipients": [
   {
    "receiver_by_document_field": "interviewer",
-   "receiver_by_role": ""
+   "receiver_by_role": "HR"
   }
  ],
  "send_system_notification": 0,
  "send_to_all_assignees": 0,
- "subject": "Interview Assigned on {{ doc.date }}"
+ "subject": "Verdict updated for {{doc.candidate}}'s {{doc.current_round}} Round",
+ "value_changed": "outcome"
 }

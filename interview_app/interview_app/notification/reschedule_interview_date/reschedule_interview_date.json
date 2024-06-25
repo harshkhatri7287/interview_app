@@ -1,0 +1,29 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "creation": "2024-06-20 15:32:01.137285",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Interview",
+ "enabled": 1,
+ "event": "Value Change",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Interview {{doc.name}} rescheduled on {{doc.date}} at {{doc.time}}",
+ "message_type": "Markdown",
+ "modified": "2024-06-25 12:59:37.472266",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Reschedule Interview Date",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "interviewer"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "Interview {{doc.name}} rescheduled on  Date:{{doc.date}}",
+ "value_changed": "date"
+}

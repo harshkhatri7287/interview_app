@@ -1,0 +1,28 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "creation": "2024-06-20 15:15:30.408440",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Interview Reschedule",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Interview Reschdule request has been received for {{doc.interview}}.\nPreferred Date: {{doc.preferred_date}} \nPreferred Time: {{doc.preferred_time}} ",
+ "message_type": "Markdown",
+ "modified": "2024-06-25 12:59:52.559210",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Reschedule Request",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_role": "HR"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "Interview Reschedule request for {{doc.interview}} on {{doc.preferred_date}} at {{doc.preferred_time}}"
+}
