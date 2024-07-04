@@ -94,7 +94,7 @@ class ExtractTextInfoFromPDF:
                     3.) Most question should be from recent work.
                     4.) All questions must be relevant to Year of experience of candidate in that field
                     5.) questions should NOT be like " -what challenges he faced, -what he thinks about something,- and how he manage to do things".they should be specific to technology as well as his work
-
+                    6.) List some main tech-stack and skill based on the candidate resume.
                     The questions should be highly technical, detailed, and focus on technical aspects of the candidate's work..
 
                     Provide a summary of the resume content under the heading "summary."

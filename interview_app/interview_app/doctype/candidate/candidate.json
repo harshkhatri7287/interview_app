@@ -62,6 +62,7 @@
    "fieldname": "role_applied",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Role Applied",
    "options": "Software Developer\nSenior Software Developer\nDevOps Enginner\nTech Lead\nSenior Tech Lead",
    "reqd": 1
@@ -102,7 +103,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-06-18 17:22:44.340759",
+ "modified": "2024-06-28 13:26:57.172035",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",
@@ -128,7 +129,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Manager",
+   "role": "HR",
    "share": 1,
    "write": 1
   },
@@ -156,5 +157,6 @@
    "title": "Submitted"
   }
  ],
- "title_field": "full_name"
+ "title_field": "full_name",
+ "translated_doctype": 1
 }

@@ -1,1 +1,1 @@
-Interview {{doc.name}} rescheduled on {{doc.date}} at {{doc.time}}
+<p>Interview {{doc.name}} rescheduled on {{doc.date}}</p>

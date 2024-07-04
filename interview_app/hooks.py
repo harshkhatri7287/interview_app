@@ -5,8 +5,10 @@ app_description = "Interview Management System"
 app_email = "interviewmanager@beehyv.com"
 app_license = "mit"
 
+# hooks.py
 
-fixtures = ["Client Script"]
+
+
 
 # Includes in <head>
 # ------------------

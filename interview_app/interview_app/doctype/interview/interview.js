@@ -27,7 +27,32 @@ frappe.ui.form.on('Interview', {
         update_candidate_status(frm);
     },
 
+    
+
     refresh: function(frm) {
+        frm.add_custom_button(__('Generate Questions'), function() {
+            if (frm.doc.current_round !== "Screening" || frm.doc.outcome !== "Pending") {
+                frappe.msgprint("Questions can only be generated for Screening rounds with a pending outcome.");
+                return;
+            }
+
+            var timerInterval = showTimer(); // Assuming showTimer is defined elsewhere
+
+            frappe.call({
+                method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
+                args: {
+                    docname: frm.doc.candidate
+                },
+                callback: function(r) {
+                    stopTimer(timerInterval); // Assuming stopTimer is defined elsewhere
+                    if (!r.exc) {
+                        frm.reload_doc();
+                    } else {
+                        frappe.msgprint("Please try again.");
+                    }
+                }
+            });
+        });
         frm.add_custom_button(__('Reschedule Request'), function() {
             let d = new frappe.ui.Dialog({
                 title: 'Request Reschedule',
@@ -83,3 +108,31 @@ function update_candidate_status(frm) {
     });
 }
 
+function showTimer() {
+    var timeLeft = 30;
+
+    // Display the initial message
+    frappe.msgprint({
+        message: `Generating questions... <span id="timer-countdown">${timeLeft}</span> seconds remaining.`,
+        title: 'Please wait...',
+        indicator: 'yellow'
+    });
+
+    var timerInterval = setInterval(function() {
+        timeLeft--;
+        // Update the countdown text
+        $('#timer-countdown').text(timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            frappe.hide_msgprint();
+        }
+    }, 1000);
+
+    return timerInterval;
+}
+
+function stopTimer(timerInterval) {
+    clearInterval(timerInterval);
+    frappe.hide_msgprint(); 
+}
