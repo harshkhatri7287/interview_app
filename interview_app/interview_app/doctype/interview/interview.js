@@ -1,57 +1,60 @@
 // Copyright (c) 2024, Harsh and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Interview", {
-// 	refresh(frm) {
-
-// 	},
-// });
 
 frappe.ui.form.on('Interview', {
-        refresh: function(frm) {
-            const isInterviewer = frappe.user.has_role("Interviewer");
-            const isAdmin = frappe.user.has_role("System Manager") || frappe.session.user === 'Administrator';
 
-            if (isInterviewer && !isAdmin) {
-                if (frm.doc.interviewer !== frappe.session.user) {
-                    frm.disable_save();
-                    frappe.msgprint(__('You are not allowed to edit this interview.'));
-                }
+    // Necessary validation for interviewer
+    refresh: function(frm) {
+        const isInterviewer = frappe.user.has_role("Interviewer");
+        const isAdmin = frappe.user.has_role("System Manager") || frappe.session.user === 'Administrator';
+
+        if (isInterviewer && !isAdmin) {
+            if (frm.doc.interviewer !== frappe.session.user) {
+                frm.disable_save();
+                frappe.msgprint(__('You are not allowed to edit this interview.'));
             }
-        },
+        }
+    },
+
+    // Update canndidate status
     after_save: function(frm) {
         update_candidate_status(frm);
     },
-
-    validate: function(frm) {
-        update_candidate_status(frm);
-    },
-
     
-
+    // Generate Screening or Technical Round questions
     refresh: function(frm) {
         frm.add_custom_button(__('Generate Questions'), function() {
-            if (frm.doc.current_round !== "Screening" || frm.doc.outcome !== "Pending") {
-                frappe.msgprint("Questions can only be generated for Screening rounds with a pending outcome.");
-                return;
+            if (frm.doc.current_round === "Screening" && frm.doc.outcome === "Pending") {
+                var timerInterval = showTimer();
+
+                frappe.call({
+                    method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
+                    args: {
+                        docname: frm.doc.candidate
+                    },
+                    callback: function(r) {
+                        stopTimer(timerInterval);
+                        if (!r.exc) {
+                            frm.reload_doc();
+                        } else {
+                            frappe.msgprint("Please try again.");
+                        }
+                    }
+                });
+            }
+            else if (frm.doc.current_round === "Technical" && frm.doc.outcome === "Pending")
+            {
+                show_generate_question_dialog(frm);
+            }
+            else if (frm.doc.current_round === "Aptitude" || frm.doc.current_round === "HR"){
+                frappe.msgprint("Currently Not generating question for this round!");
+            }
+            else {
+                frappe.msgprint("Interview Should have Pending outcome!");
             }
 
-            var timerInterval = showTimer(); // Assuming showTimer is defined elsewhere
-
-            frappe.call({
-                method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
-                args: {
-                    docname: frm.doc.candidate
-                },
-                callback: function(r) {
-                    stopTimer(timerInterval); // Assuming stopTimer is defined elsewhere
-                    if (!r.exc) {
-                        frm.reload_doc();
-                    } else {
-                        frappe.msgprint("Please try again.");
-                    }
-                }
-            });
+            
         });
         frm.add_custom_button(__('Reschedule Request'), function() {
             let d = new frappe.ui.Dialog({
@@ -63,12 +66,6 @@ frappe.ui.form.on('Interview', {
                         fieldtype: 'Date',
                         reqd: 1
                     },
-                    {
-                        label: 'Preferred Time',
-                        fieldname: 'preferred_time',
-                        fieldtype: 'Time',
-                        reqd: 1
-                    }
                 ],
                 primary_action_label: 'Submit',
                 primary_action(values) {
@@ -77,7 +74,6 @@ frappe.ui.form.on('Interview', {
                         args: {
                             interview_id: frm.doc.name,
                             preferred_date: values.preferred_date,
-                            preferred_time: values.preferred_time
                         },
                         callback: function(r) {
                             if (r.message) {
@@ -108,6 +104,8 @@ function update_candidate_status(frm) {
     });
 }
 
+
+// TIMER
 function showTimer() {
     var timeLeft = 30;
 
@@ -135,4 +133,44 @@ function showTimer() {
 function stopTimer(timerInterval) {
     clearInterval(timerInterval);
     frappe.hide_msgprint(); 
+}
+
+// GENERATE CODING QUESTIONS
+function show_generate_question_dialog(frm) {
+    console.log('Open Dialog!');
+    let dialog = new frappe.ui.Dialog({
+        title: 'Generate Coding Questions',
+        fields: [
+            {
+                label: 'Type of Question',
+                fieldname: 'question_type',
+                fieldtype: 'Select',
+                options: ['Debug & Correction', 'Adding a Feature', 'DSA', 'Code Optimization'],
+                reqd: 1
+            },
+        ],
+        primary_action_label: 'Generate',
+        primary_action(values) {
+            dialog.hide();
+            generate_coding_question(frm.doc.candidate);
+        }
+    });
+
+    dialog.show();
+}
+
+function generate_coding_question(candidate) {
+    frappe.call({
+        method: 'interview_app.interview_app.doctype.candidate.candidate.generate_coding_question',
+        args: {
+            candidate: candidate,
+            // question_type: question_type,
+            // skills: skills
+        },
+        callback: function(r) {
+            if (r.message) {
+                frappe.msgprint(__('Question generated and saved successfully.'));
+            }
+        }
+    });
 }

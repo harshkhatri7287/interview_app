@@ -13,6 +13,7 @@
  "document_type": "System",
  "engine": "InnoDB",
  "field_order": [
+  "candidate_details_section",
   "full_name",
   "status",
   "role_applied",
@@ -44,12 +45,13 @@
   },
   {
    "allow_in_quick_entry": 1,
+   "default": "Pending",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Pending\nScreening\nTechnical\nAptitude\nHR\nApproved\nRejected\nOn Hold",
+   "options": "Pending\nScreening Round\nAptitude Round\nTechnical Round\nHR Round\nHired\nNot Hired\nOn Hold",
    "reqd": 1
   },
   {
@@ -80,7 +82,8 @@
   },
   {
    "fieldname": "section_break_jgde",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Interview Details of Candidate"
   },
   {
    "fieldname": "resume_summary",
@@ -88,6 +91,11 @@
    "hidden": 1,
    "label": "Resume_summary",
    "read_only": 1
+  },
+  {
+   "fieldname": "candidate_details_section",
+   "fieldtype": "Section Break",
+   "label": "Candidate Details"
   }
  ],
  "hide_toolbar": 1,
@@ -103,7 +111,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-06-28 13:26:57.172035",
+ "modified": "2024-07-10 16:31:46.940981",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",

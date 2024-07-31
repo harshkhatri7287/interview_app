@@ -27,67 +27,60 @@ frappe.ui.form.on('Candidate', {
             frm.add_custom_button(__('Schedule Next Interview'), function() {
                 schedule_next_interview(frm);
             });
-
-            frm.add_custom_button(__('Generate Questions'), function() {
-                var timerInterval = showTimer();
-                frappe.call({
-                    method: 'interview_app.interview_app.doctype.candidate.candidate.generate_questions',
-                    args: {
-                        docname: frm.doc.name
-                    },
-                    callback: function(r) {
-                        stopTimer(timerInterval);
-                        if (!r.exc) {
-                            frm.reload_doc();
-                        }
-                        else {
-                            frappe.msgprint("Please try again..")
-                        }
-                    }
-                });
-            });
         }
     },
 });
 
 function schedule_next_interview(frm) {
-    // Fetch the interview details for the candidate
     frappe.call({
-        method: 'interview_app.interview_app.doctype.candidate.candidate.get_interview_rounds',
+        method: 'interview_app.interview_app.doctype.candidate.candidate.fetch_candidate_interviews',
         args: {
-            candidate: frm.doc.name
+            candidate_id: frm.doc.name
         },
         callback: function(r) {
             if (r.message) {
-                var completed_rounds = r.message.completed_rounds;
-                var next_round = get_next_round(completed_rounds);
+                var rounds = r.message;
+                console.log("Fetched rounds:", rounds);
+
+                var last_round = rounds.length > 0 ? rounds[rounds.length - 1] : null;
+                var next_round = get_next_round(rounds);
+
+                if (last_round) {
+                    if (last_round.outcome === 'Pending') {
+                        frappe.msgprint(__('The ' + last_round.current_round + ' interview round is still pending. Please complete it before scheduling the next one.'));
+                        return;
+                    }
+                }
 
                 if (next_round) {
-                    if (completed_rounds.includes(next_round)) {
-                        frappe.msgprint(__(next_round + ' round is already scheduled or completed.'));
-                    } else {
-                        frappe.new_doc('Interview', {
-                            'candidate': frm.doc.name,
-                            'current_round': next_round,
-                        });
-                    }
+                    frappe.new_doc('Interview', {
+                        'candidate': frm.doc.name,
+                        'current_round': next_round,
+                    });
                 } else {
                     frappe.msgprint(__('All interview rounds are completed.'));
                 }
+            } else {
+                frappe.new_doc('Interview', {
+                    'candidate': frm.doc.name,
+                    'current_round': 'Screening',
+                });
             }
         }
     });
 }
 
-function get_next_round(completed_rounds) {
-    var rounds = ['Screening', 'Aptitude', 'Technical', 'HR'];
-    for (var i = 0; i < rounds.length; i++) {
-        if (!completed_rounds.includes(rounds[i])) {
-            return rounds[i];
+function get_next_round(rounds) {
+    var completed_rounds = rounds.map(round => round.current_round);
+    var all_rounds = ['Screening', 'Aptitude', 'Technical', 'HR'];
+    for (var i = 0; i < all_rounds.length; i++) {
+        if (!completed_rounds.includes(all_rounds[i])) {
+            return all_rounds[i];
         }
     }
     return null;
 }
+
 
 function showTimer() {
     var timeLeft = 30;

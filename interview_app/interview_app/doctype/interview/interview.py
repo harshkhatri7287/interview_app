@@ -11,43 +11,50 @@ class Interview(Document):
 
 @frappe.whitelist()
 def update_candidate_status_client(candidate):
-    rounds = ["Aptitude", "Screening", "Technical", "HR"]
+    rounds = ["Screening", "Aptitude", "Technical", "HR"]
     
     # Initialize flags and variables
-    all_approved = True
-    any_rejected = False
-    most_recent_approved_round = None
-    rounds_checked = 0
+    all_hired = True
+    any_no_hire = False
+    any_on_hold = False
+    most_recent_round = None
 
-    # Iterate through each round and check the outcome
     for round_name in rounds:
         outcome = frappe.db.get_value('Interview', {'candidate': candidate, 'current_round': round_name}, 'outcome')
-        
+
         if outcome:
-            rounds_checked += 1
-            if outcome == "Rejected":
-                any_rejected = True
+            most_recent_round = round_name
+            if outcome == "No Hire":
+                any_no_hire = True
                 break
-            elif outcome == "Approved":
-                most_recent_approved_round = round_name
+            elif outcome in ["Weak Hire", "Hire", "Strong Hire"]:
+                continue
+            elif outcome == "On Hold":
+                any_on_hold = True
+                break
             else:
-                all_approved = False
+                all_hired = False
+                break   
         else:
-            all_approved = False
+            all_hired = False
 
     # Determine the candidate status based on the outcomes
-    if any_rejected:
-        frappe.db.set_value('Candidate', candidate, 'status', 'Rejected')
-        return 'Rejected'
-    elif all_approved and rounds_checked == len(rounds):
-        frappe.db.set_value('Candidate', candidate, 'status', 'Approved')
-        return 'Approved'
-    elif most_recent_approved_round:
-        frappe.db.set_value('Candidate', candidate, 'status', most_recent_approved_round)
-        return most_recent_approved_round
+    if any_no_hire:
+        frappe.db.set_value('Candidate', candidate, 'status', 'Not Hired')
+        return 'Not Hired'
+    elif any_on_hold:
+        frappe.db.set_value('Candidate', candidate, 'status', 'On Hold')
+        return 'On Hold'
+    elif all_hired and most_recent_round == rounds[-1]:
+        frappe.db.set_value('Candidate', candidate, 'status', 'Hired')
+        return 'Hired'
+    elif most_recent_round:
+        frappe.db.set_value('Candidate', candidate, 'status', most_recent_round + ' Round')
+        return most_recent_round + ' Round'
     else:
         frappe.db.set_value('Candidate', candidate, 'status', 'Pending')
         return 'Pending'
+
     
 
 @frappe.whitelist()

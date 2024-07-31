@@ -48,7 +48,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Current Round",
+   "label": "Interview Round",
    "options": "Screening\nAptitude\nTechnical\nHR",
    "reqd": 1
   },
@@ -56,7 +56,7 @@
    "fieldname": "outcome",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Outcome",
+   "label": "Verdict",
    "options": "Pending\nNo Hire\nHire\nWeak Hire\nStrong Hire\nOn Hold"
   },
   {
@@ -82,7 +82,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-06-30 19:17:56.899782",
+ "modified": "2024-07-09 18:04:13.524982",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Interview",
