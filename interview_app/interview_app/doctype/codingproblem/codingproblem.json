@@ -1,0 +1,95 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-31 17:27:37.442003",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "problem_section",
+  "problem_statement",
+  "problem_code",
+  "candidate_response",
+  "candidate_and_interview_section",
+  "candidate",
+  "interview",
+  "score_and_feedback_section",
+  "score",
+  "feedback"
+ ],
+ "fields": [
+  {
+   "fieldname": "problem_section",
+   "fieldtype": "Section Break",
+   "label": "Problem"
+  },
+  {
+   "fieldname": "problem_statement",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Problem Statement",
+   "reqd": 1
+  },
+  {
+   "fieldname": "problem_code",
+   "fieldtype": "Code",
+   "in_list_view": 1,
+   "label": "Problem Code"
+  },
+  {
+   "fieldname": "candidate_response",
+   "fieldtype": "Code",
+   "in_list_view": 1,
+   "label": "Candidate Response"
+  },
+  {
+   "fieldname": "candidate_and_interview_section",
+   "fieldtype": "Section Break",
+   "label": "Candidate and Interview"
+  },
+  {
+   "fieldname": "candidate",
+   "fieldtype": "Link",
+   "label": "Candidate",
+   "options": "Candidate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "interview",
+   "fieldtype": "Link",
+   "label": "Interview",
+   "options": "Interview",
+   "read_only": 1
+  },
+  {
+   "fieldname": "score_and_feedback_section",
+   "fieldtype": "Section Break",
+   "label": "Score and Feedback"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Int",
+   "label": "Score",
+   "non_negative": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "feedback",
+   "fieldtype": "Text",
+   "label": "Feedback",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-07-31 20:44:27.710053",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "CodingProblem",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

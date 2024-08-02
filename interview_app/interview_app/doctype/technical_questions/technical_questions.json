@@ -5,17 +5,64 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_xuku"
+  "candidate_and_interview_section",
+  "candidate",
+  "interview",
+  "problem_section",
+  "problem_statement",
+  "problem_code",
+  "response"
  ],
  "fields": [
   {
-   "fieldname": "section_break_xuku",
-   "fieldtype": "Section Break"
+   "fieldname": "candidate_and_interview_section",
+   "fieldtype": "Section Break",
+   "label": "Candidate and Interview"
+  },
+  {
+   "fieldname": "candidate",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Candidate",
+   "options": "Candidate",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "interview",
+   "fieldtype": "Link",
+   "label": "Interview",
+   "options": "Interview",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "problem_section",
+   "fieldtype": "Section Break",
+   "label": "Problem"
+  },
+  {
+   "bold": 1,
+   "fieldname": "problem_statement",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Problem Statement",
+   "reqd": 1
+  },
+  {
+   "fieldname": "problem_code",
+   "fieldtype": "Code",
+   "label": "Problem Code"
+  },
+  {
+   "fieldname": "response",
+   "fieldtype": "Code",
+   "label": "Response"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-28 19:42:49.507521",
+ "modified": "2024-07-31 16:42:29.704155",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Technical_Questions",

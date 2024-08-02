@@ -8,10 +8,7 @@
   "question",
   "candidate",
   "questions",
-  "technology",
-  "current_round",
-  "coding_question",
-  "problem_type"
+  "technology"
  ],
  "fields": [
   {
@@ -41,29 +38,11 @@
    "in_list_view": 1,
    "label": "Technology",
    "reqd": 1
-  },
-  {
-   "default": "Screening",
-   "fieldname": "current_round",
-   "fieldtype": "Select",
-   "label": "Interview Round",
-   "options": "Screening\nAptitude\nTechnical\nHR"
-  },
-  {
-   "fieldname": "coding_question",
-   "fieldtype": "Code",
-   "label": "Coding Question"
-  },
-  {
-   "fieldname": "problem_type",
-   "fieldtype": "Select",
-   "label": "Problem Type",
-   "options": "Debug & Correction\nAdding a Feature\nDSA\nCode Optimization"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-29 13:21:13.086503",
+ "modified": "2024-07-31 15:55:12.082917",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Question",

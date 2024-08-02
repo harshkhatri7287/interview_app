@@ -21,7 +21,16 @@ frappe.ui.form.on('Interview', {
     after_save: function(frm) {
         update_candidate_status(frm);
     },
-    
+
+    onload: function(frm) {
+        frm.refresh_field('problems');
+        // add_coding_problem_to_child_table();
+    },
+    refresh: function(frm) {
+        frm.refresh_field('problems');
+        // add_coding_problem_to_child_table();
+    },
+
     // Generate Screening or Technical Round questions
     refresh: function(frm) {
         frm.add_custom_button(__('Generate Questions'), function() {
@@ -55,6 +64,19 @@ frappe.ui.form.on('Interview', {
             }
 
             
+        });
+        frm.add_custom_button(__('Evaluate Problems'), function() {
+            frappe.call({
+                method: 'interview_app.interview_app.doctype.candidate.candidate.evaluate_problems',
+                args: {
+                    interview_id: frm.doc.name
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        frappe.msgprint("Evaluation Done!!");
+                    }
+                }
+            });
         });
         frm.add_custom_button(__('Reschedule Request'), function() {
             let d = new frappe.ui.Dialog({
@@ -142,8 +164,8 @@ function show_generate_question_dialog(frm) {
         title: 'Generate Coding Questions',
         fields: [
             {
-                label: 'Type of Question',
-                fieldname: 'question_type',
+                label: 'Type of Problem',
+                fieldname: 'problem_type',
                 fieldtype: 'Select',
                 options: ['Debug & Correction', 'Adding a Feature', 'DSA', 'Code Optimization'],
                 reqd: 1
@@ -152,24 +174,81 @@ function show_generate_question_dialog(frm) {
         primary_action_label: 'Generate',
         primary_action(values) {
             dialog.hide();
-            generate_coding_question(frm.doc.candidate);
+            frappe.msgprint(__('Generating question...'));
+            generate_coding_question(frm.doc.candidate, values.problem_type, frm);
         }
     });
 
     dialog.show();
 }
 
-function generate_coding_question(candidate) {
+function generate_coding_question(candidate, problem_type, frm) {
     frappe.call({
         method: 'interview_app.interview_app.doctype.candidate.candidate.generate_coding_question',
         args: {
             candidate: candidate,
-            // question_type: question_type,
-            // skills: skills
+            problem_type: problem_type,
         },
         callback: function(r) {
             if (r.message) {
-                frappe.msgprint(__('Question generated and saved successfully.'));
+                let question = r.message;
+                console.log("Generated Questions..");
+                let question_dialog = new frappe.ui.Dialog({
+                    title: 'Generated Question',
+                    fields: [
+                        {
+                            label: 'Problem Statement',
+                            fieldname: 'problem_statement',
+                            fieldtype: 'Text',
+                            default: question.problem_statement,
+                            read_only: 1
+                        },
+                    ],
+                    primary_action_label: 'Proceed',
+                    primary_action(values) {
+                        question_dialog.hide();
+                        add_coding_problem_to_child_table(frm, candidate, question.problem_statement, question.problem_code);
+                    }
+                });
+
+                question_dialog.set_secondary_action_label('Generate Again');
+                question_dialog.set_secondary_action(() => {
+                    question_dialog.hide();
+                    show_generate_question_dialog(frm);
+                });
+
+                question_dialog.show();
+            }
+        }
+    });
+}
+
+
+function add_coding_problem_to_child_table(frm, candidate, problem_statement, problem_code) {
+    // Call server-side function to save the coding problem
+    frappe.call({
+        method: 'interview_app.interview_app.doctype.candidate.candidate.save_coding_problem',
+        args: {
+            interview_id: frm.doc.name,
+            candidate: candidate,
+            problem_statement: problem_statement,
+            problem_code: problem_code
+        },
+        callback: function(r) {
+            if (r.message.status === "success") {
+                // Add the new problem to the child table
+                frm.add_child('problems', {
+                    candidate: candidate,
+                    problem_statement: problem_statement,
+                    problem_code: problem_code,
+                    interviewer: frappe.session.user
+                });
+
+                // Refresh the child table
+                frm.refresh_field('problems');
+                frappe.msgprint(__('Coding problem added successfully to the table.'));
+            } else {
+                frappe.msgprint(__('Error adding coding problem: ' + r.message.message));
             }
         }
     });
