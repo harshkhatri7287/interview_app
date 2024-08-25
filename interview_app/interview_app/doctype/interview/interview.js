@@ -24,11 +24,9 @@ frappe.ui.form.on('Interview', {
 
     onload: function(frm) {
         frm.refresh_field('problems');
-        // add_coding_problem_to_child_table();
     },
     refresh: function(frm) {
         frm.refresh_field('problems');
-        // add_coding_problem_to_child_table();
     },
 
     // Generate Screening or Technical Round questions
@@ -65,19 +63,21 @@ frappe.ui.form.on('Interview', {
 
             
         });
-        frm.add_custom_button(__('Evaluate Problems'), function() {
-            frappe.call({
-                method: 'interview_app.interview_app.doctype.candidate.candidate.evaluate_problems',
-                args: {
-                    interview_id: frm.doc.name
-                },
-                callback: function(r) {
-                    if (r.message) {
-                        frappe.msgprint("Evaluation Done!!");
+        if (frm.doc.current_round === 'Technical') {
+            frm.add_custom_button(__('Evaluate Problems'), function() {
+                frappe.call({
+                    method: 'interview_app.interview_app.doctype.candidate.candidate.evaluate_problems',
+                    args: {
+                        interview_id: frm.doc.name
+                    },
+                    callback: function(r) {
+                        if (r.message) {
+                            frappe.msgprint("Evaluation Done!!");
+                        }
                     }
-                }
+                });
             });
-        });
+        }
         frm.add_custom_button(__('Reschedule Request'), function() {
             let d = new frappe.ui.Dialog({
                 title: 'Request Reschedule',
@@ -120,7 +120,7 @@ function update_candidate_status(frm) {
         },
         callback: function(r) {
             if (r.message) {
-                frappe.msgprint(__('Candidate status updated to ' + r.message));
+                frappe.show_alert(__('Candidate status updated to ' + r.message));
             }
         }
     });

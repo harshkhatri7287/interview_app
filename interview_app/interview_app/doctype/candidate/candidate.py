@@ -116,12 +116,13 @@ def evaluate_problems(interview_id):
     coding_problems = interview_doc.problems
     problem_response = {}
     for problem in coding_problems:
-        key = f"{problem.problem_statement}{problem.problem_code}"
+        key = f"{problem.problem_statement}"
         value = problem.candidate_response or "Not answered."
         problem_response[key] = value
 
     evaluator = GenerateQuestion()
     evaluation = evaluator.evaluate_answer(problem_response=problem_response)
+    print(problem_response)
     print(evaluation)
 
     formatted_evaluation = formatter(evaluation)
@@ -135,6 +136,7 @@ def formatter(evaluation):
     if evaluation and isinstance(evaluation, str):
         try:
             evaluation = json.loads(evaluation)
+            print(evaluation)
         except json.JSONDecodeError:
             raise ValueError("Invalid JSON format for evaluation")
     

@@ -58,7 +58,12 @@ function schedule_next_interview(frm) {
                         'current_round': next_round,
                     });
                 } else {
-                    frappe.msgprint(__('All interview rounds are completed.'));
+                    frappe.msgprint({
+                        title: __('Notification'),
+                        indicator: 'green',
+                        message: __('All interview rounds are completed.')
+                    });
+                    // frappe.msgprint(__());
                 }
             } else {
                 frappe.new_doc('Interview', {

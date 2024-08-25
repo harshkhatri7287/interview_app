@@ -7,6 +7,7 @@
   }
  ],
  "allow_copy": 1,
+ "autoname": "CAND.###",
  "creation": "2024-05-23 14:26:17.019718",
  "default_view": "List",
  "doctype": "DocType",
@@ -111,10 +112,11 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-07-10 16:31:46.940981",
+ "modified": "2024-08-21 16:35:41.506203",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",
+ "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
   {
