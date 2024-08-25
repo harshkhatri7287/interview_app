@@ -1,0 +1,41 @@
+{
+ "cards": [
+  {
+   "card": "Your Interviews"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Pending Interviews",
+   "width": "Half"
+  },
+  {
+   "chart": "Interview Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Role Applied",
+   "width": "Half"
+  },
+  {
+   "chart": "candidate status",
+   "width": "Half"
+  },
+  {
+   "chart": "number of interviews",
+   "width": "Half"
+  }
+ ],
+ "creation": "2024-08-09 16:57:17.611395",
+ "dashboard_name": "Interview Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2024-08-09 17:18:07.441147",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Interview Dashboard",
+ "owner": "Administrator"
+}

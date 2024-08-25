@@ -1,0 +1,25 @@
+{
+ "cards": [
+  {
+   "card": "Your Interviews"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Pending Interviews",
+   "width": "Full"
+  }
+ ],
+ "creation": "2024-08-09 16:57:17.611395",
+ "dashboard_name": "Interviewer Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2024-08-09 16:59:09.038726",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Interviewer Dashboard",
+ "owner": "Administrator"
+}
