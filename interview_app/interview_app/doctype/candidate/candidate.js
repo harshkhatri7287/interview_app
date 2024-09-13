@@ -45,12 +45,12 @@ function schedule_next_interview(frm) {
                 var last_round = rounds.length > 0 ? rounds[rounds.length - 1] : null;
                 var next_round = get_next_round(rounds);
 
-                if (last_round) {
-                    if (last_round.outcome === 'Pending') {
-                        frappe.msgprint(__('The ' + last_round.current_round + ' interview round is still pending. Please complete it before scheduling the next one.'));
-                        return;
-                    }
-                }
+                // if (last_round) {
+                //     if (last_round.outcome === 'Pending') {
+                //         frappe.msgprint(__('The ' + last_round.current_round + ' interview round is still pending. Please complete it before scheduling the next one.'));
+                //         return;
+                //     }
+                // }
 
                 if (next_round) {
                     frappe.new_doc('Interview', {

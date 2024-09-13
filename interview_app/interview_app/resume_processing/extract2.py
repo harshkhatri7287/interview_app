@@ -24,7 +24,7 @@ from adobe.pdfservices.operation.auth.service_principal_credentials import Servi
 logging.basicConfig(level=logging.INFO)
 
 openai.api_key  = 'sk-proj-rAz7fZIsGnsYmbSobqbwT3BlbkFJDeLWNt79cV4sIs8mkVo5'
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def get_completion(prompt, model="gpt-4"):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
         model=model,

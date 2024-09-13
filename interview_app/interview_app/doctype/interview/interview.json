@@ -20,7 +20,8 @@
   "problems",
   "section_break_cquj",
   "is_evaluated",
-  "evaluated_score"
+  "evaluated_score",
+  "amended_from"
  ],
  "fields": [
   {
@@ -90,7 +91,7 @@
    "fieldname": "problems",
    "fieldtype": "Table",
    "label": "Problems",
-   "max_height": "50px",
+   "max_height": "100px",
    "options": "CodingProblem"
   },
   {
@@ -130,18 +131,23 @@
    "fieldname": "coding_problems_tab",
    "fieldtype": "Tab Break",
    "label": "Problem and Evaluation"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Interview",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
- "links": [
-  {
-   "link_doctype": "Candidate",
-   "link_fieldname": "full_name"
-  }
- ],
+ "links": [],
  "make_attachments_public": 1,
- "modified": "2024-08-10 17:22:01.478165",
+ "modified": "2024-09-11 17:26:39.807507",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Interview",

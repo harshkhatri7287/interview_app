@@ -63,8 +63,7 @@ def generate_coding_question(candidate, problem_type):
         feedback = interview_doc.feedback
         generate_coding_question_instance = GenerateQuestion()
         question = generate_coding_question_instance.generate_coding_questions(feedback=feedback, problem_type=problem_type)
-        print(question)
-        print("Questions generated in the backend")
+        # print(f"Question in candidate file is: {question}")
         return {
             'problem_statement': question.get('problem_statement', ''),
             'problem_code': question.get('problem_code', '')
@@ -122,8 +121,6 @@ def evaluate_problems(interview_id):
 
     evaluator = GenerateQuestion()
     evaluation = evaluator.evaluate_answer(problem_response=problem_response)
-    print(problem_response)
-    print(evaluation)
 
     formatted_evaluation = formatter(evaluation)
     
@@ -136,7 +133,6 @@ def formatter(evaluation):
     if evaluation and isinstance(evaluation, str):
         try:
             evaluation = json.loads(evaluation)
-            print(evaluation)
         except json.JSONDecodeError:
             raise ValueError("Invalid JSON format for evaluation")
     

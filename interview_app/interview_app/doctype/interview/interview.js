@@ -32,6 +32,9 @@ frappe.ui.form.on('Interview', {
     // Generate Screening or Technical Round questions
     refresh: function(frm) {
         frm.add_custom_button(__('Generate Questions'), function() {
+            if (frappe.user.has_role('HR')) {
+                frm.disable_custom_button(__('Generate Questions'));
+            }
             if (frm.doc.current_round === "Screening" && frm.doc.outcome === "Pending") {
                 var timerInterval = showTimer();
 
@@ -65,6 +68,10 @@ frappe.ui.form.on('Interview', {
         });
         if (frm.doc.current_round === 'Technical') {
             frm.add_custom_button(__('Evaluate Problems'), function() {
+                if (frappe.user.has_role('HR')) {
+                    frm.disable_custom_button(__('Evaluate Problems'));
+                }
+                frappe.show_alert("Evaluating problems...Please wait")
                 frappe.call({
                     method: 'interview_app.interview_app.doctype.candidate.candidate.evaluate_problems',
                     args: {
@@ -78,36 +85,39 @@ frappe.ui.form.on('Interview', {
                 });
             });
         }
-        frm.add_custom_button(__('Reschedule Request'), function() {
-            let d = new frappe.ui.Dialog({
-                title: 'Request Reschedule',
-                fields: [
-                    {
-                        label: 'Preferred Date',
-                        fieldname: 'preferred_date',
-                        fieldtype: 'Date',
-                        reqd: 1
-                    },
-                ],
-                primary_action_label: 'Submit',
-                primary_action(values) {
-                     frappe.call({
-                        method: 'interview_app.interview_app.doctype.interview.interview.create_interview_reschedule',
-                        args: {
-                            interview_id: frm.doc.name,
-                            preferred_date: values.preferred_date,
-                        },
-                        callback: function(r) {
-                            if (r.message) {
-                                frappe.msgprint(__('Reschedule request created successfully'));
-                            }
-                        }
-                    });
-                    d.hide();
-                }
-            });
-            d.show();
-        });
+        // frm.add_custom_button(__('Reschedule Request'), function() {
+        //     if (frappe.user.has_role('HR')) {
+        //         frm.disable_custom_button(__('Generate Questions'));
+        //     }
+        //     let d = new frappe.ui.Dialog({
+        //         title: 'Request Reschedule',
+        //         fields: [
+        //             {
+        //                 label: 'Preferred Date',
+        //                 fieldname: 'preferred_date',
+        //                 fieldtype: 'Date',
+        //                 reqd: 1
+        //             },
+        //         ],
+        //         primary_action_label: 'Submit',
+        //         primary_action(values) {
+        //              frappe.call({
+        //                 method: 'interview_app.interview_app.doctype.interview.interview.create_interview_reschedule',
+        //                 args: {
+        //                     interview_id: frm.doc.name,
+        //                     preferred_date: values.preferred_date,
+        //                 },
+        //                 callback: function(r) {
+        //                     if (r.message) {
+        //                         frappe.msgprint(__('Reschedule request created successfully'));
+        //                     }
+        //                 }
+        //             });
+        //             d.hide();
+        //         }
+        //     });
+        //     d.show();
+        // });
     }
     
 });
@@ -174,7 +184,7 @@ function show_generate_question_dialog(frm) {
         primary_action_label: 'Generate',
         primary_action(values) {
             dialog.hide();
-            frappe.msgprint(__('Generating question...'));
+            frappe.show_alert(__('Generating question...'));
             generate_coding_question(frm.doc.candidate, values.problem_type, frm);
         }
     });

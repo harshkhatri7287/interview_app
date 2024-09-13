@@ -6,6 +6,13 @@ app_email = "interviewmanager@beehyv.com"
 app_license = "mit"
 
 # hooks.py
+doc_events = {
+    "Interview": {
+        "after_insert": "interview_app.interview_app.teams_notification.teams_notification.notify_interview_scheduled",
+        "on_update": ["interview_app.interview_app.teams_notification.teams_notification.notify_interview_verdict_submitted",
+                      "interview_app.interview_app.teams_notification.teams_notification.send_reschedule_confirmation"],
+    }
+}
 
 
 

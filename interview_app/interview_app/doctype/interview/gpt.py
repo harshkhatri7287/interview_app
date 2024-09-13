@@ -4,7 +4,7 @@ import json
 import os
 
 openai.api_key  = os.getenv("OPENAI_API_KEY", 'sk-proj-rAz7fZIsGnsYmbSobqbwT3BlbkFJDeLWNt79cV4sIs8mkVo5')
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def get_completion(prompt, model="gpt-4"):
     messages = [{"role": "assistant", "content": "You are a experienced technical interviewer"},{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
         model=model,
@@ -40,8 +40,8 @@ class GenerateQuestion:
 
                 1. **Difficulty Level**: The difficulty of the question should be aligned with the candidate's years of experience:
                 - **0 < YOE < 1 year**: Medium difficulty (e.g., common algorithmic challenges like two-sum, binary search).
-                - **1 < YOE < 3 years**: Hard difficulty (e.g., complex algorithms, dynamic programming, graph traversal).
-                - **YOE > 3 years**: Extreme difficulty (e.g., advanced data structures, intricate problem-solving that combines multiple concepts).
+                - **1 < YOE < 4 years**: Hard difficulty (e.g., complex algorithms, dynamic programming, graph traversal).
+                - **YOE > 4 years**: Extreme difficulty (e.g., advanced data structures, intricate problem-solving that combines multiple concepts).
 
                 2. **Problem Requirements**:
                 - **Data Structures & Algorithms**: Choose an appropriate algorithmic challenge (e.g., for Python, focus on data manipulation, dynamic programming, or graph algorithms).
@@ -65,9 +65,12 @@ class GenerateQuestion:
         to write response."""
                 
         response = get_completion(prompt=prompt)
-        print(response)
+        print(f"Raw response is: {response}")
+        response = response.replace("```json", "").replace("```", "")
+        print(f"After modiication: {response}")
         try:
             questions = json.loads(response)
+            # print("converted to json")
         except json.JSONDecodeError:
             questions = []
         
@@ -81,12 +84,13 @@ class GenerateQuestion:
         candidate from a technical interview round. Do the following:
         1). Evaluate each solution from the dictionary based on its problem statement and monitoring necessary
         coding standards. 
-        2). Give the overall score and feedback based on those each response.
+        2). Give the overall score (out of 100) and feedback based on those each response.
         If a response is "Not answered", then candidate was not able to solve the problem. 
-        3). Give me a json object with `Score` (values should be overall and question wise score) and `Feedback` (values should be 
+        3). Your output should only be a JSON with `Score` (values should be overall and question wise score) and `Feedback` (values should be 
         overall and question wise feedback) keys.
         """
         response = get_completion(prompt=prompt)
+        print(f"response is: {response}")
         try:
             questions = json.loads(response)
         except json.JSONDecodeError:

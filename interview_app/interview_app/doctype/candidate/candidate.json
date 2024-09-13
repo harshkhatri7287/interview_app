@@ -16,11 +16,12 @@
  "field_order": [
   "candidate_details_section",
   "full_name",
-  "status",
   "role_applied",
-  "column_break_ousn",
   "resume",
+  "column_break_ousn",
+  "status",
   "email",
+  "column_break_hzrj",
   "resume_summary",
   "section_break_jgde",
   "interview_rounds"
@@ -28,8 +29,10 @@
  "fields": [
   {
    "allow_in_quick_entry": 1,
+   "bold": 1,
    "fieldname": "full_name",
    "fieldtype": "Data",
+   "in_global_search": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Full Name",
@@ -62,6 +65,7 @@
   },
   {
    "allow_in_quick_entry": 1,
+   "bold": 1,
    "fieldname": "role_applied",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -89,7 +93,6 @@
   {
    "fieldname": "resume_summary",
    "fieldtype": "Long Text",
-   "hidden": 1,
    "label": "Resume_summary",
    "read_only": 1
   },
@@ -97,6 +100,10 @@
    "fieldname": "candidate_details_section",
    "fieldtype": "Section Break",
    "label": "Candidate Details"
+  },
+  {
+   "fieldname": "column_break_hzrj",
+   "fieldtype": "Column Break"
   }
  ],
  "hide_toolbar": 1,
@@ -105,14 +112,10 @@
   {
    "link_doctype": "Interview",
    "link_fieldname": "candidate"
-  },
-  {
-   "link_doctype": "Question",
-   "link_fieldname": "candidate"
   }
  ],
  "make_attachments_public": 1,
- "modified": "2024-08-21 16:35:41.506203",
+ "modified": "2024-09-05 15:07:04.429963",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Candidate",
