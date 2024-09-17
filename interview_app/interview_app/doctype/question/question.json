@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "QUE-.#####",
  "creation": "2024-05-24 07:47:35.363317",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -42,10 +43,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-31 15:55:12.082917",
+ "modified": "2024-09-17 13:11:28.168268",
  "modified_by": "Administrator",
  "module": "Interview App",
  "name": "Question",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

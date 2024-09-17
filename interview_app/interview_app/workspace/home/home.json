@@ -1,0 +1,80 @@
+{
+ "charts": [
+  {
+   "chart_name": "Pending Interviews",
+   "label": "Pending Interviews"
+  },
+  {
+   "chart_name": "Interview Status",
+   "label": "Interview Rounds"
+  },
+  {
+   "chart_name": "Role Applied",
+   "label": "Role Applied"
+  }
+ ],
+ "content": "[{\"id\":\"cdoo3zEmsW\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Name Block\",\"col\":12}},{\"id\":\"CwzaT3EM7l\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Pending Interviews\",\"col\":12}},{\"id\":\"qsjNhfzOpX\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Interview Rounds\",\"col\":12}},{\"id\":\"eVXVp7kbTB\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Role Applied\",\"col\":12}}]",
+ "creation": "2024-08-09 17:56:59.453101",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Name Block",
+   "label": "Name Block"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "sidebar-expand",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "Home",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Candidate List",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Candidate",
+   "link_count": 0,
+   "link_to": "Candidate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-09-17 13:00:45.792486",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Home",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "HR"
+  },
+  {
+   "role": "Interviewer"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Administrator"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [],
+ "title": "Home"
+}

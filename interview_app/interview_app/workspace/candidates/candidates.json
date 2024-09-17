@@ -1,0 +1,52 @@
+{
+ "charts": [
+  {
+   "chart_name": "Pending Interviews",
+   "label": "Pending Interviews"
+  }
+ ],
+ "content": "[{\"id\":\"Ftbi_tyC4Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Candidate List\",\"col\":12}},{\"id\":\"kFAKI66adp\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Add button for Candidate\",\"col\":3}},{\"id\":\"TGQXPLzHAn\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Candidates for HR\",\"col\":12}}]",
+ "creation": "2024-06-30 19:48:07.018818",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Add button for Candidate",
+   "label": "Add button for Candidate"
+  },
+  {
+   "custom_block_name": "Candidates for HR",
+   "label": "Candidates for HR"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "right",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Candidates",
+ "links": [],
+ "modified": "2024-09-17 13:01:10.344908",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Candidates",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Candidate List",
+   "link_to": "Candidate",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Candidates"
+}

@@ -1,5 +1,6 @@
 import json
 import os
+import frappe
 import zipfile
 from datetime import datetime
 from .jsontohtm import HTMLWriter
@@ -23,7 +24,8 @@ from adobe.pdfservices.operation.auth.service_principal_credentials import Servi
 
 logging.basicConfig(level=logging.INFO)
 
-openai.api_key  = 'sk-proj-rAz7fZIsGnsYmbSobqbwT3BlbkFJDeLWNt79cV4sIs8mkVo5'
+keys = frappe.get_doc('Private Keys')
+openai.api_key = keys.openapi_key 
 def get_completion(prompt, model="gpt-4"):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(

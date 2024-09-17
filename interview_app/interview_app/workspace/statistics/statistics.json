@@ -1,0 +1,46 @@
+{
+ "charts": [
+  {
+   "chart_name": "Interview Status",
+   "label": "Interview stats"
+  },
+  {
+   "chart_name": "number of interviews",
+   "label": "interviews/week"
+  },
+  {
+   "chart_name": "Role Applied",
+   "label": "stats of role"
+  },
+  {
+   "chart_name": "candidate status",
+   "label": "status of candidates"
+  }
+ ],
+ "content": "[{\"id\":\"RTlJODdoJw\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Statistics</span>\",\"col\":12}},{\"id\":\"dkllcsqE0I\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Interview stats\",\"col\":12}},{\"id\":\"JLpDYl3S57\",\"type\":\"chart\",\"data\":{\"chart_name\":\"stats of role\",\"col\":6}},{\"id\":\"rm0nyDuE3E\",\"type\":\"chart\",\"data\":{\"chart_name\":\"status of candidates\",\"col\":6}},{\"id\":\"Q5lfH4wknt\",\"type\":\"chart\",\"data\":{\"chart_name\":\"interviews/week\",\"col\":12}}]",
+ "creation": "2024-06-30 19:51:34.411721",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "right",
+ "idx": 1,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Statistics",
+ "links": [],
+ "modified": "2024-09-17 13:01:01.715155",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Statistics",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 4.0,
+ "shortcuts": [],
+ "title": "Statistics"
+}

@@ -1,0 +1,46 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-17 13:17:59.630315",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "openapi_key",
+  "teams_webhook_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "openapi_key",
+   "fieldtype": "Data",
+   "label": "openapi_key"
+  },
+  {
+   "fieldname": "teams_webhook_url",
+   "fieldtype": "Data",
+   "label": "teams_webhook_url"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-09-17 13:40:59.636106",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Private Keys",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

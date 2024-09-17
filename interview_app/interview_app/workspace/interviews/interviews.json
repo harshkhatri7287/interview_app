@@ -1,0 +1,55 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"qpKiBdsoVO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Interview List\",\"col\":3}},{\"id\":\"V6EDo78NkK\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming interview for interviewers\",\"col\":12}},{\"id\":\"hQ3Kzu_r-d\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Recent Interviews for interviewers\",\"col\":12}},{\"id\":\"JADxpvbd88\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Interviews for HR\",\"col\":12}},{\"id\":\"XQTslC4Mzm\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Recent Interviews for HR\",\"col\":12}}]",
+ "creation": "2024-06-28 19:12:11.833057",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Recent Interviews for interviewers",
+   "label": "Recent Interviews for interviewers"
+  },
+  {
+   "custom_block_name": "Upcoming Interviews for HR",
+   "label": "Upcoming Interviews for HR"
+  },
+  {
+   "custom_block_name": "Upcoming interview for interviewers",
+   "label": "Upcoming interview for interviewers"
+  },
+  {
+   "custom_block_name": "Recent Interviews for HR",
+   "label": "Recent Interviews for HR"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "right",
+ "idx": 2,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Interviews",
+ "links": [],
+ "modified": "2024-09-17 13:01:19.974176",
+ "modified_by": "Administrator",
+ "module": "Interview App",
+ "name": "Interviews",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Interview List",
+   "link_to": "Interview",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Interviews"
+}

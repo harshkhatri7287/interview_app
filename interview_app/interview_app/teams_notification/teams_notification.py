@@ -6,7 +6,10 @@ from frappe.utils.response import build_response
 
 
 def send_teams_notification(card_payload):
-    url = frappe.conf.get("webhook_url")   
+    keys = frappe.get_doc('Private Keys')
+    url = keys.teams_webhook_url
+    print(url)
+    print(f"The URL is: {url}")
     headers = {
         'Content-Type': 'application/json'
     }    
