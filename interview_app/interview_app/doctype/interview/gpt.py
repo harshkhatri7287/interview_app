@@ -86,8 +86,9 @@ class GenerateQuestion:
         coding standards. 
         2). Give the overall score (out of 100) and feedback based on those each response.
         If a response is "Not answered", then candidate was not able to solve the problem. 
-        3). Your output should only be a JSON with `Score` (values should be overall and question wise score) and `Feedback` (values should be 
+        3). Your output must be a JSON with `Score` (values should be overall and question wise score) and `Feedback` (values should be 
         overall and question wise feedback) keys.
+        **Do not include any additional explanation or text. Only provide the JSON object.**
         """
         response = get_completion(prompt=prompt)
         print(f"response is: {response}")

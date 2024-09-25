@@ -138,34 +138,40 @@ function update_candidate_status(frm) {
 
 
 // TIMER
-function showTimer() {
-    var timeLeft = 30;
 
-    // Display the initial message
-    frappe.msgprint({
-        message: `Generating questions... <span id="timer-countdown">${timeLeft}</span> seconds remaining.`,
-        title: 'Please wait...',
-        indicator: 'yellow'
-    });
-
-    var timerInterval = setInterval(function() {
+function showTimer(duration = 30) {
+    let timeLeft = duration;
+    let totalDuration = duration; 
+    frappe.show_progress(
+        'Generating questions...',  
+        0,                          
+        100,                         
+        `${timeLeft} seconds remaining` 
+    );
+    const timerInterval = setInterval(() => {
         timeLeft--;
-        // Update the countdown text
-        $('#timer-countdown').text(timeLeft);
-
+        let progressPercent = ((totalDuration - timeLeft) * 100) / totalDuration;
+        frappe.show_progress(
+            'Generating questions...',  
+            progressPercent,             
+            100,                       
+            `${timeLeft} seconds remaining`  
+        );
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            frappe.hide_msgprint();
+            frappe.hide_progress();
         }
     }, 1000);
-
     return timerInterval;
 }
 
 function stopTimer(timerInterval) {
-    clearInterval(timerInterval);
-    frappe.hide_msgprint(); 
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        frappe.hide_progress(); 
+    }
 }
+
 
 // GENERATE CODING QUESTIONS
 function show_generate_question_dialog(frm) {
@@ -256,7 +262,7 @@ function add_coding_problem_to_child_table(frm, candidate, problem_statement, pr
 
                 // Refresh the child table
                 frm.refresh_field('problems');
-                frappe.msgprint(__('Coding problem added successfully to the table.'));
+                frappe.show_alert(__('Coding problem added successfully to the table.'));
             } else {
                 frappe.msgprint(__('Error adding coding problem: ' + r.message.message));
             }
